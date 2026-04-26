@@ -114,3 +114,51 @@ GO
 
 SELECT * FROM Students;
 GO
+
+create proc deleteStudents
+            @name varchar(30)
+
+
+as
+begin
+    delete from Students
+    where name= @name
+
+    print 'Delete Scuessfully'
+
+end;
+
+    exec deleteStudents @name='Sadia'
+go
+
+
+------- Store Procedure Delete With Condition --------
+
+create proc deleteStudentID
+            @StudentID int
+
+
+as
+begin
+
+    if exists (select 1 from Students where StudentID=@StudentID)
+        begin
+
+            delete from Students
+            where StudentID= @StudentID
+            print'Student Data Deleted Succesfully'
+
+        end;
+            
+            
+        else
+            begin
+
+                Print'ID Not Deleted'
+
+            end;
+
+end;
+select * from Students
+
+exec deleteStudentID @StudentID= 5
